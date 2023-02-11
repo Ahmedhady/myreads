@@ -1,14 +1,17 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import * as BooksAPI from "./BooksAPI";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ListShelfs from "./ListShelfs";
 import Search from "./Search";
 
 function App() {
-  let navigate = useNavigate();
   
   const [books, setBooks] = useState ([]);
+  const [query, setQuery]= useState("");
+  const [searchBooks, setSearchBooks] = useState ([]);
+  const [maxResults, setMaxResults] = useState(0);
+  
 
   useEffect(() => {
     const getBooks = async () => {
@@ -18,22 +21,29 @@ function App() {
     getBooks();
   }, [])
 
-  const searchBooks = (book) => {
-    const search = async () => {
-      const res = await BooksAPI.search(book);
-      setBooks(books.concat(res));
+  const updateShelf = async (book, shelf) => { 
+      await BooksAPI.update(book, shelf);
+      const res = await BooksAPI.getAll();
+      setBooks(res);
     }
-    search();
-    navigate("/");
-  } 
+
+  const handleSearch = async (event) => {
+    await setQuery(event.target.value);
+    console.log(query);
+    handleSearchBooks(query, maxResults);
+  }
+
+  const handleSearchBooks = async (query, maxResults) => {
+    const res = await BooksAPI.search(query, maxResults);
+    setSearchBooks(res);
+  }
 
   return (
     <Routes>
       <Route exact path="/" element={
-        <ListShelfs books={books} />
-      }/>
+        <ListShelfs books={books} updateShelf={updateShelf} />}/>
       <Route path="/search" element={
-        <Search books={books} searchBooks={searchBooks} />}/>
+        <Search handleSearch={handleSearch} query={query} searchBooks={searchBooks} />}/>
     </Routes>
   );
 }
