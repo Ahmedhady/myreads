@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import SearchShelf from './SearchShelf';
 
-const Search = ({ handleSearch, search, searchBooks }) => {
+const Search = ({ handleSearch, query, searchBooks, updateShelf, emptyQuery }) => {
   
     return (
         <div className="search-books">
@@ -13,17 +13,11 @@ const Search = ({ handleSearch, search, searchBooks }) => {
             <div className="search-books-input-wrapper">
               <input
                 type="text"
-                placeholder="Search by title, author, or ISBN" onChange={handleSearch}
+                placeholder="Search by title, author, or ISBN" value={query} onChange={handleSearch}
               />
             </div>
           </div>
-          <div className="search-books-results">
-            <ol className="books-grid">
-              {searchBooks.map((book) => (
-                <span>{book.title}</span>
-              ))}
-            </ol>
-          </div>
+          <SearchShelf query={query} searchBooks={searchBooks} updateShelf={updateShelf} emptyQuery={emptyQuery}/>
         </div>
     )
 }
