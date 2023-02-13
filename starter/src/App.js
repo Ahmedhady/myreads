@@ -38,8 +38,11 @@ function App() {
       // validate 'res' before doing the next line, and implement all requirements in the rubric.
       if (res && !res.error) {
       const updateBook = res.map((inquery)=> {
-        books.find((book)=> {
-          if (inquery.id === book.id ) inquery.shelf = book.shelf
+          //books.forEach((book)=> {
+            //if (inquery.id === book.id ) inquery.shelf = book.shelf
+            books.find((book) => {
+              book.shelf = inquery.shelf;
+          //})
         })
         return inquery;
       })
