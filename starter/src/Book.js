@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage:`url("${book.imageLinks && book.imageLinks.smallThumbnail}")`,
+                backgroundImage:`url("${book.imageLinks.thumbnail && book.imageLinks.smallThumbnail}")`,
               }}
             ></div>
             <div className="book-shelf-changer">
@@ -26,6 +26,15 @@ import PropTypes from 'prop-types';
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{book.authors}</div>
+
+          <div className="book-title">{book.subtitle}</div>
+          <div className="book-title">{book.shelf ? book.shelf : 'none'}</div>
+          <div className="book-title">{book.publishedDate}</div>
+          <div className="book-title">{book.pageCount}</div>
+          <div className="book-title">{book.printType}</div>
+          <div className="book-title">{book.publisher}</div>
+          <div className="book-title">{book.averageRating}</div>
+          <div className="book-title">{book.id}</div>
         </div>
         </li>
       )

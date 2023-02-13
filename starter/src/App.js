@@ -25,6 +25,7 @@ function App() {
       await BooksAPI.update(book, shelf);
       const res = await BooksAPI.getAll();
       setBooks(res);
+       //handleSearch(query);
     }
 
     const handleSearch = async (event) => {
@@ -36,12 +37,13 @@ function App() {
       const res = await BooksAPI.search(query);
       // validate 'res' before doing the next line, and implement all requirements in the rubric.
       if (res && !res.error) {
-      setSearchBooks(res.map((inquery)=> {
-        books.forEach((book)=> {
+      const updateBook = res.map((inquery)=> {
+        books.find((book)=> {
           if (inquery.id === book.id ) inquery.shelf = book.shelf
         })
         return inquery;
-      }));
+      })
+      setSearchBooks(updateBook);
       setEmptyQuery(true);
       }else {
       setSearchBooks([]);
