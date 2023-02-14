@@ -23,5 +23,6 @@ SearchShelf.propTypes = {
   searchBooks: PropTypes.array.isRequired,
   updateShelf: PropTypes.func.isRequired,
   emptyQuery: PropTypes.bool.isRequired,
+  updateSearchBooks: PropTypes.array.isRequired,
 }
 export default SearchShelf;
