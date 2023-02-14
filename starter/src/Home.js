@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import Shelf from "./Shelf";
+import HomeShelf from "./HomeShelf";
 
-const ListShelfs =  ({books, updateShelf}) => {
+const Home =  ({books, updateShelf}) => {
 
     return (
         <div className="list-books">
@@ -14,9 +13,9 @@ const ListShelfs =  ({books, updateShelf}) => {
 
         <div className="list-books-content">
           <div>
-            <Shelf title='Currently Reading' currShelf="currentlyReading" books={books} updateShelf={updateShelf} />
-            <Shelf title='Want To Read' currShelf="wantToRead" books={books} updateShelf={updateShelf} />
-            <Shelf title='Read' currShelf="read" books={books} updateShelf={updateShelf} />
+            <HomeShelf title='Currently Reading' currShelf="currentlyReading" books={books} updateShelf={updateShelf} />
+            <HomeShelf title='Want To Read' currShelf="wantToRead" books={books} updateShelf={updateShelf} />
+            <HomeShelf title='Read' currShelf="read" books={books} updateShelf={updateShelf} />
           </div>
         </div>
 
@@ -29,7 +28,8 @@ const ListShelfs =  ({books, updateShelf}) => {
       </div>
     )
 }
-ListShelfs.propTypes = {
+Home.propTypes = {
     books: PropTypes.array.isRequired,
+    updateShelf: PropTypes.func.isRequired,
 }
-export default ListShelfs;
+export default Home;

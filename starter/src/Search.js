@@ -22,6 +22,10 @@ const Search = ({ handleSearch, query, searchBooks, updateShelf, emptyQuery }) =
     )
 }
 Search.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
   searchBooks: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
+  emptyQuery: PropTypes.bool.isRequired,
 }
 export default Search;

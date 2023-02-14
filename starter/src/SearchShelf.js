@@ -5,15 +5,23 @@ const SearchShelf = ({ query,searchBooks, updateShelf, emptyQuery}) => {
     return (
         <div className="search-books-results">
         <ol className="books-grid">
+
+          {/* select books with shelf by map() if query's result is not empty */}
             { emptyQuery ? (
-          searchBooks.map((book) => (
-            //<span key={book.id}>{book.title}</span>
+          searchBooks.map((book) => (  
             <Book key={book.id} book={book} updateShelf={updateShelf} />
           ))
-            ):(`No Results of ${query}`)
+            ):(`Ops no Results of ${query}`)
             }
+
         </ol>
       </div>
     )
+}
+SearchShelf.propTypes = {
+  query: PropTypes.string.isRequired,
+  searchBooks: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
+  emptyQuery: PropTypes.bool.isRequired,
 }
 export default SearchShelf;

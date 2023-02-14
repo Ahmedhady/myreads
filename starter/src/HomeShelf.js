@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
 import Book from './Book';
 
- const Shelf = ({title, books, currShelf, updateShelf}) => {
-
-  const showingBooks = books.filter((book)=> book.shelf === currShelf)
-
+ const HomeShelf = ({title, books, currShelf, updateShelf}) => {
     return (
         <div className="bookshelf">
               <h2 className="bookshelf-title">{title}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
 
-                      {showingBooks.map((book)=>(
+                      {/* select books to get correct shelf by Combining map() And filter() Together */}
+                      {books.filter((book)=> book.shelf === currShelf).map((book)=>(
                         <Book key={book.id} book={book} updateShelf={updateShelf} />
                       ))}
 
@@ -20,8 +18,10 @@ import Book from './Book';
             </div>
     )
  }
- Shelf.propTypes = {
+ HomeShelf.propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
+    currShelf: PropTypes.string.isRequired,
+    updateShelf: PropTypes.func.isRequired,
  }
- export default Shelf;
+ export default HomeShelf;

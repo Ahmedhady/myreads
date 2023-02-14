@@ -30,13 +30,13 @@ import PropTypes from 'prop-types';
           <div className="book-title">{book.subtitle}</div>
           <div className="book-title">{book.shelf ? book.shelf : 'none'}</div>
           <div className="book-title">{book.publishedDate}</div>
-          <div className="book-title">{book.pageCount}</div>
-          <div className="book-title">{book.printType}</div>
           <div className="book-title">{book.publisher}</div>
-          <div className="book-title">{book.averageRating}</div>
-          <div className="book-title">{book.id}</div>
         </div>
         </li>
       )
  }
+ Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  updateShelf: PropTypes.func.isRequired,
+}
  export default Book;
