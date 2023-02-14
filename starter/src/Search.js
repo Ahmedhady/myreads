@@ -1,9 +1,42 @@
 import PropTypes from 'prop-types';
+import { useState } from "react";
 import { Link } from 'react-router-dom';
+import * as BooksAPI from "./BooksAPI";
 import SearchShelf from './SearchShelf';
 
-const Search = ({ handleSearch, query, searchBooks, updateShelf, emptyQuery }) => {
-  
+const Search = ({ updateShelf, books }) => {
+
+  const [query, setQuery] = useState("");
+  const [searchBooks, setSearchBooks] = useState ([]);
+  const [emptyQuery, setEmptyQuery] = useState (false);
+
+  const handleSearch = async (event) => {
+    const query = event.target.value;
+    setQuery(query);
+    // check if 'query' is not an empty string before calling the API
+    // Clear the page if 'query' is empty
+    const res = await BooksAPI.search(query);
+    // validate 'res' before doing the next line, and implement all requirements in the rubric.
+    if (res && !res.error) {
+    //5
+    setSearchBooks(res);
+    setEmptyQuery(true);
+    } else {
+    setSearchBooks([]);
+    setEmptyQuery(false);
+    }
+  }
+
+  const updateSearchBooks = searchBooks.map((inquery)=> {
+    const bookFound = books.find((book) => book.id === inquery.id )
+      if (bookFound) {
+        inquery.shelf = bookFound.shelf;
+      } else {
+        inquery.shelf = 'none';
+      }
+      return inquery;
+      })
+
     return (
         <div className="search-books">
           <div className="search-books-bar">
@@ -17,15 +50,12 @@ const Search = ({ handleSearch, query, searchBooks, updateShelf, emptyQuery }) =
               />
             </div>
           </div>
-          <SearchShelf query={query} searchBooks={searchBooks} updateShelf={updateShelf} emptyQuery={emptyQuery}/>
+          <SearchShelf query={query} searchBooks={searchBooks} updateShelf={updateShelf} emptyQuery={emptyQuery} updateSearchBooks={updateSearchBooks} />
         </div>
     )
 }
 Search.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
-  query: PropTypes.string.isRequired,
-  searchBooks: PropTypes.array.isRequired,
+  books: PropTypes.array.isRequired,
   updateShelf: PropTypes.func.isRequired,
-  emptyQuery: PropTypes.bool.isRequired,
 }
 export default Search;

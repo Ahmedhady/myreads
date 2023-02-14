@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Book from './Book';
 
-const SearchShelf = ({ query,searchBooks, updateShelf, emptyQuery}) => {
+const SearchShelf = ({ query,searchBooks, updateShelf, emptyQuery, updateSearchBooks}) => {
     return (
         <div className="search-books-results">
         <ol className="books-grid">
